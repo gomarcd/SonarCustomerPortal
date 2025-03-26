@@ -1,0 +1,17 @@
+{$PORTAL_DOMAIN} {
+    root * /var/www/html/public
+    file_server
+    php_fastcgi unix//run/php/php8.2-fpm.sock
+
+    @disableTLS {
+        expression {env.ENABLE_SSL} == "false"
+    }
+    tls @disableTLS {
+        skip_cert_issuance
+    }
+
+    @redirectHTTP {
+        expression {http.request.scheme} == "http" && {env.ENABLE_SSL} == "true"
+    }
+    redir @redirectHTTP https://{host}{uri} permanent
+}
