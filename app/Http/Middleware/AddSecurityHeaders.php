@@ -11,7 +11,10 @@ class AddSecurityHeaders
     {
         $response = $next($request);
         $response->header('X-Content-Type-Options', 'nosniff', true);
-        $response->header('Strict-Transport-Security', 'max-age', true);
+        
+        if (env('ENABLE_SSL', false) === true) {
+            $response->header('Strict-Transport-Security', 'max-age', true);
+        }
 
         return $response;
     }
