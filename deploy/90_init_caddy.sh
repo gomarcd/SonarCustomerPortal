@@ -1,6 +1,5 @@
 #!/bin/bash
 set -euf -o pipefail
-export HOME="/root"
 
 if [ "${ENABLE_SSL:-false}" = "true" ]; then
     PORTAL_DOMAIN="$PORTAL_DOMAIN"
