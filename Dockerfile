@@ -18,7 +18,6 @@ RUN add-apt-repository ppa:ondrej/php \
       unzip \
       curl
 
-# Install Caddy
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg \
  && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list \
  && install_clean caddy
@@ -36,23 +35,17 @@ COPY --chown=www-data . .
 RUN COMPOSER_CACHE_DIR=/dev/null setuser www-data /tmp/composer install --no-dev --no-interaction --no-scripts --classmap-authoritative \
  && rm -rf /tmp/composer
 
-# Copy Caddy configuration
 COPY deploy/conf/caddy/Caddyfile.template /etc/caddy/Caddyfile.template
-
-# Copy PHP-FPM configuration
 COPY deploy/conf/php-fpm/ /etc/php/8.2/fpm/
-
 COPY deploy/conf/cron.d/* /etc/cron.d/
 RUN chmod -R go-w /etc/cron.d
-
 RUN mkdir -p /etc/my_init.d
 COPY deploy/*.sh /etc/my_init.d/
-
 RUN mkdir /etc/service/php-fpm
 COPY deploy/services/php-fpm.sh /etc/service/php-fpm/run
-
 RUN mkdir /etc/service/caddy
 COPY deploy/services/caddy.sh /etc/service/caddy/run
+RUN chmod +x /etc/service/caddy/run
 
 VOLUME /var/www/html/storage
 EXPOSE 80 443
