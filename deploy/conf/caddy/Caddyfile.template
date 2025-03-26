@@ -7,7 +7,7 @@ $PORTAL_DOMAIN {
         expression {env.ENABLE_SSL} == "false"
     }
     tls @disableTLS {
-        skip_cert_issuance
+        issuer null
     }
 
     @redirectHTTP {
