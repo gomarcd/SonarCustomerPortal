@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: sonarsoftware/customerportal:next
+    # image: sonarsoftware/customerportal:next
     container_name: sonar-customerportal
     restart: always
     tty: true
@@ -17,9 +17,9 @@ services:
       - ./public/assets/fcclabels:/var/www/html/public/assets/fcclabels
       - storage:/var/www/html/storage
     env_file:
-     - .env
+      - .env
     environment:
-      ENABLE_SSL: ${ENABLE_SSL:-true}
+      ENABLE_SSL: true
       REDIS_HOST: redis
     depends_on:
       - redis
@@ -27,13 +27,6 @@ services:
   redis:
     image: redis:7.0.11-alpine
     restart: always
-
-  watchtower:
-    image: v2tec/watchtower
-    restart: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: sonar-customerportal
 
 volumes:
   storage:
