@@ -1,5 +1,6 @@
 #!/bin/bash
 set -euf -o pipefail
+export HOME="/root"
 
 if [ "${ENABLE_SSL:-false}" = "true" ]; then
     PORTAL_DOMAIN="$PORTAL_DOMAIN"
@@ -9,3 +10,4 @@ fi
 
 export PORTAL_DOMAIN
 envsubst '$PORTAL_DOMAIN' < /etc/caddy/Caddyfile.template > /etc/caddy/Caddyfile
+caddy fmt --overwrite /etc/caddy/Caddyfile
