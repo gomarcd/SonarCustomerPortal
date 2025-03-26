@@ -42,6 +42,7 @@ RUN chmod -R go-w /etc/cron.d
 RUN mkdir -p /etc/my_init.d
 COPY deploy/*.sh /etc/my_init.d/
 RUN mkdir /etc/service/php-fpm
+RUN chmod +x /etc/my_init.d/90_init_caddy.sh
 COPY deploy/services/php-fpm.sh /etc/service/php-fpm/run
 RUN mkdir /etc/service/caddy
 COPY deploy/services/caddy.sh /etc/service/caddy/run
