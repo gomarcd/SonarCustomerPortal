@@ -11,8 +11,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      - ./data/caddy/data:/data
       - ./public/assets/img/logo.png:/var/www/html/public/assets/img/logo.png
       - ./public/assets/img/cover.png:/var/www/html/public/assets/img/cover.png
       - ./public/assets/fcclabels:/var/www/html/public/assets/fcclabels
@@ -20,6 +19,7 @@ services:
     env_file:
      - .env
     environment:
+      ENABLE_SSL: ${ENABLE_SSL:-true}
       REDIS_HOST: redis
     depends_on:
       - redis

@@ -1,2 +1,0 @@
-# reload nginx every 6 hours to pick up any updated SSL certificates
-9 */6 * * * root /usr/sbin/nginx -s reload
