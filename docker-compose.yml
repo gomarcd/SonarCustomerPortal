@@ -19,7 +19,7 @@ services:
     env_file:
       - .env
     environment:
-      ENABLE_SSL: true
+      ENABLE_SSL: "${ENABLE_SSL}"
       REDIS_HOST: redis
     depends_on:
       - redis
