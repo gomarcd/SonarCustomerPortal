@@ -1,8 +1,10 @@
 FROM phusion/baseimage:jammy-1.0.1 AS base
 
 ENV LC_ALL C.UTF-8
-ENV HOME=/root
-ENV XDG_CONFIG_HOME=/root/.config
+
+RUN mkdir -p /etc/service/caddy/env && \
+    echo '/root' > /etc/service/caddy/env/HOME && \
+    echo '/root/.config' > /etc/service/caddy/env/XDG_CONFIG_HOME
 
 ARG PHP_VERSION=8.2
 
