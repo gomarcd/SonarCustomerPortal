@@ -24,18 +24,12 @@ if ! [ -x "$(command -v docker)" ]; then
     apt-get install -y docker-ce docker-ce-cli containerd.io
 fi
 
-if ! [ -x "$(command -v docker-compose)" ]; then
-    echo "### docker-compose is not installed, installing it now..."
-    curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
-fi
-
 if [ -f .env ]; then
     read -p "### WARNING: Your environment appears to already be set up. Set it up again? [y/N] " -i n -n 1 -r
     echo
     [[ ! $REPLY =~ ^[Yy]$ ]] && exit 1;
 
-    docker-compose stop
+    docker compose stop
     sed -i '/API_PASSWORD=/d' .env
 
     source .env
@@ -79,7 +73,7 @@ export APP_KEY PORTAL_DOMAIN API_USERNAME API_PASSWORD SONAR_URL ENABLE_SSL
 
 docker pull sonarsoftware/customerportal:stable
 
-docker-compose up -d
+docker compose up -d
 
 until [ "$(docker inspect -f {{.State.Running}} sonar-customerportal)" == "true" ]; do
     sleep 0.1
