@@ -1,4 +1,4 @@
-{$PORTAL_DOMAIN} {
+$PORTAL_DOMAIN {
     root * /var/www/html/public
     file_server
     php_fastcgi unix//run/php/php8.2-fpm.sock
