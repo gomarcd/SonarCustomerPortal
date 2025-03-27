@@ -1,7 +1,6 @@
 FROM caddy:2.9.1@sha256:cd261fc62394f1ff0b44f16eb1d202b4e71d5365c9ec866a4f1a9c5a52da9352 AS caddy
 FROM phusion/baseimage:jammy-1.0.1 AS base
 
-ENV HOME /root
 ENV XDG_CONFIG_HOME /config
 ENV XDG_DATA_HOME /data
 ENV LC_ALL C.UTF-8
