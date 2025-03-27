@@ -47,7 +47,6 @@ RUN mkdir -p /etc/my_init.d
 COPY deploy/*.sh /etc/my_init.d/
 RUN mkdir /etc/service/php-fpm
 COPY deploy/services/php-fpm.sh /etc/service/php-fpm/run
-RUN mkdir /etc/service/caddy
 COPY deploy/services/caddy.sh /etc/service/caddy/run
 
 VOLUME /var/www/html/storage
