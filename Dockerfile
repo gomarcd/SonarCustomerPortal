@@ -1,5 +1,7 @@
 FROM phusion/baseimage:jammy-1.0.1 AS base
 
+ENV XDG_CONFIG_HOME /config
+ENV XDG_DATA_HOME /data
 ENV LC_ALL C.UTF-8
 
 ARG PHP_VERSION=8.2
