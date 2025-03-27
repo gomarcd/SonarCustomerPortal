@@ -2,10 +2,6 @@ FROM phusion/baseimage:jammy-1.0.1 AS base
 
 ENV LC_ALL C.UTF-8
 
-RUN mkdir -p /etc/service/caddy/env && \
-    echo '/root' > /etc/service/caddy/env/HOME && \
-    echo '/root/.config' > /etc/service/caddy/env/XDG_CONFIG_HOME
-
 ARG PHP_VERSION=8.2
 
 RUN add-apt-repository ppa:ondrej/php \
@@ -46,6 +42,7 @@ RUN chmod -R go-w /etc/cron.d
 RUN mkdir -p /etc/my_init.d
 COPY deploy/*.sh /etc/my_init.d/
 RUN mkdir /etc/service/php-fpm
+RUN mkdir -p /etc/service/caddy
 COPY deploy/services/php-fpm.sh /etc/service/php-fpm/run
 COPY deploy/services/caddy.sh /etc/service/caddy/run
 
